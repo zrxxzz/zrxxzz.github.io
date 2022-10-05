@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="git," />
 
 
 
@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="BLOG">
-<meta property="og:url" content="http://zrxxzz.github.io/index.html">
+<meta name="description" content="今天刷了一个b站上对git管理项目的视频，以此写篇博客巩固">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git管理开发指南（粗略）">
+<meta property="og:url" content="http://zrxxzz.github.io/2022/10/05/git%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91tip/index.html">
 <meta property="og:site_name" content="BLOG">
+<meta property="og:description" content="今天刷了一个b站上对git管理项目的视频，以此写篇博客巩固">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-05T14:55:05.000Z">
+<meta property="article:modified_time" content="2022-10-05T15:38:42.755Z">
 <meta property="article:author" content="Paul.P3pp3r.zrx">
-<meta property="article:tag" content="web spring">
+<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://zrxxzz.github.io/"/>
+  <link rel="canonical" href="http://zrxxzz.github.io/2022/10/05/git项目开发tip/"/>
 
 
 
 
 
-  <title>BLOG</title>
+  <title>git管理开发指南（粗略） | BLOG</title>
   
 
 
@@ -141,8 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -235,9 +238,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -267,9 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/10/05/git%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91tip/" itemprop="url">git管理开发指南（粗略）</a></h1>
+          <h1 class="post-title" itemprop="name headline">git管理开发指南（粗略）</h1>
         
 
         <div class="post-meta">
@@ -301,6 +302,11 @@
           
 
           
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o">本文总阅读量</i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span><i> 次</i>
+            </span>
+          
 
           
 
@@ -319,17 +325,38 @@
       
 
       
-        
-          <blockquote>
+        <blockquote>
 <p>今天刷了一个b站上对git管理项目的视频，以此写篇博客巩固</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/10/05/git%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91tip/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+<span id="more"></span>
+</blockquote>
+<h1 id="团队开发者的修改"><a href="#团队开发者的修改" class="headerlink" title="团队开发者的修改"></a>团队开发者的修改</h1><h2 id="如果GitHub（远端）代码未出现更新的情况下"><a href="#如果GitHub（远端）代码未出现更新的情况下" class="headerlink" title="如果GitHub（远端）代码未出现更新的情况下"></a>如果GitHub（远端）代码未出现更新的情况下</h2><ol>
+<li>‘git clone &#x2F;&#x2F;‘ 将项目爬取到本地</li>
+<li>‘git checkout -b xxx’ 切换至本地新分支xxx<br><br><em>相当于复制了remote仓库到本地的xxx分支上</em></li>
+<li>修改或者添加本地代码<br><em>修改的代码本质上是修改本地磁盘上的源码，本地git和远程git都不会变化</em></li>
+<li>‘git diff’ 用于查看此次修改的主要内容</li>
+<li>‘git add (file)’ 将file文件上传至暂存区，一般来说可以直接用 ‘git add .’将整个当前目录上传</li>
+<li>‘git commit ‘ 将暂存区的代码上传至本地git</li>
+<li>‘git push origin xxx’ 将本地git上的xxx分支上传至remote仓库(即github上的仓库)</li>
+</ol>
+<hr>
+<h2 id="如果GitHub（远端）代码在你修改的过程中，源码出现了更新"><a href="#如果GitHub（远端）代码在你修改的过程中，源码出现了更新" class="headerlink" title="如果GitHub（远端）代码在你修改的过程中，源码出现了更新"></a>如果GitHub（远端）代码在你修改的过程中，源码出现了更新</h2><ol>
+<li>前6步与上面相同</li>
+<li>‘git checkout main’ 切换回主分支（main)</li>
+<li>‘git pull origin master’ 将远端代码再更新到本地的main分支上</li>
+<li>‘git checkout xxx’ 回到xxx分支上</li>
+<li>‘git rebase main’<br><br><strong>我在xxx分支上把main移过来,然后根据我的commit对新的main进行对接</strong><br>这其中可能会出现’rebase conflict’报错（不兼容—&gt;寄），需要手动选择保留哪个版本</li>
+<li>‘git push -f origin xxx’ 把rebase后并且更新过的代码push到远端的git仓库</li>
+</ol>
+<h1 id="项目拥有者采纳修改方案"><a href="#项目拥有者采纳修改方案" class="headerlink" title="项目拥有者采纳修改方案"></a>项目拥有者采纳修改方案</h1><ol>
+<li>进入项目对应仓库，创建pull request</li>
+<li>多个团队人员分工可以选择 squash and merge<br><em>开发人数少的话可以直接merge（虽然可能出现冗余）</em></li>
+</ol>
+<h1 id="项目更新完后，再进行修改步骤"><a href="#项目更新完后，再进行修改步骤" class="headerlink" title="项目更新完后，再进行修改步骤"></a>项目更新完后，再进行修改步骤</h1><ol>
+<li>‘git branch -d xxx’ 删除本地的xxx git分支</li>
+<li>‘git pull origin master’ 再把远端的新代码拉至本地</li>
+</ol>
+<h1 id="说在最后"><a href="#说在最后" class="headerlink" title="说在最后"></a>说在最后</h1><p>本篇博客至涉及到团队开发过程中的一种git管理方式，另外还可以采用fork仓库等操作来取代建立xxx新分支的操作<br><br>另外，文中的一些操作细节可根据自己需要添加，如’git commit -m’ 添加提交标题等</p>
+<h3 id="感谢各位的阅读，各位的支持就是我坚持下去的动力！"><a href="#感谢各位的阅读，各位的支持就是我坚持下去的动力！" class="headerlink" title="感谢各位的阅读，各位的支持就是我坚持下去的动力！"></a>感谢各位的阅读，各位的支持就是我坚持下去的动力！</h3>
       
     </div>
     
@@ -344,133 +371,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zrxxzz.github.io/2022/09/30/my-first-blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="BLOG">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/09/30/my-first-blog/" itemprop="url">my first blog</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-09-30T08:58:22+08:00">
-                2022-09-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/git/" rel="tag"># git</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-          
-        
-      
-    </div>
-    
-    
-    
+              <a href="/2022/09/30/my-first-blog/" rel="next" title="my first blog">
+                <i class="fa fa-chevron-left"></i> my first blog
+              </a>
+            
+          </div>
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -480,10 +410,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -491,6 +422,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -511,8 +446,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -563,6 +507,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%A2%E9%98%9F%E5%BC%80%E5%8F%91%E8%80%85%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-number">1.</span> <span class="nav-text">团队开发者的修改</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E6%9E%9CGitHub%EF%BC%88%E8%BF%9C%E7%AB%AF%EF%BC%89%E4%BB%A3%E7%A0%81%E6%9C%AA%E5%87%BA%E7%8E%B0%E6%9B%B4%E6%96%B0%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B"><span class="nav-number">1.1.</span> <span class="nav-text">如果GitHub（远端）代码未出现更新的情况下</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E6%9E%9CGitHub%EF%BC%88%E8%BF%9C%E7%AB%AF%EF%BC%89%E4%BB%A3%E7%A0%81%E5%9C%A8%E4%BD%A0%E4%BF%AE%E6%94%B9%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%EF%BC%8C%E6%BA%90%E7%A0%81%E5%87%BA%E7%8E%B0%E4%BA%86%E6%9B%B4%E6%96%B0"><span class="nav-number">1.2.</span> <span class="nav-text">如果GitHub（远端）代码在你修改的过程中，源码出现了更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%8B%A5%E6%9C%89%E8%80%85%E9%87%87%E7%BA%B3%E4%BF%AE%E6%94%B9%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">项目拥有者采纳修改方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%9B%B4%E6%96%B0%E5%AE%8C%E5%90%8E%EF%BC%8C%E5%86%8D%E8%BF%9B%E8%A1%8C%E4%BF%AE%E6%94%B9%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">项目更新完后，再进行修改步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%B4%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">4.</span> <span class="nav-text">说在最后</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%84%9F%E8%B0%A2%E5%90%84%E4%BD%8D%E7%9A%84%E9%98%85%E8%AF%BB%EF%BC%8C%E5%90%84%E4%BD%8D%E7%9A%84%E6%94%AF%E6%8C%81%E5%B0%B1%E6%98%AF%E6%88%91%E5%9D%9A%E6%8C%81%E4%B8%8B%E5%8E%BB%E7%9A%84%E5%8A%A8%E5%8A%9B%EF%BC%81"><span class="nav-number">4.0.1.</span> <span class="nav-text">感谢各位的阅读，各位的支持就是我坚持下去的动力！</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -716,6 +676,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
