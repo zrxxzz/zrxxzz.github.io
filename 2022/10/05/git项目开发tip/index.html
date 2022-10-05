@@ -87,7 +87,7 @@
 <meta property="og:description" content="今天在b站看到一个git项目管理入门视频,总结一下">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-05T14:55:05.000Z">
-<meta property="article:modified_time" content="2022-10-05T16:06:23.473Z">
+<meta property="article:modified_time" content="2022-10-05T16:17:27.978Z">
 <meta property="article:author" content="Paul.P3pp3r.zrx">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary">
@@ -329,22 +329,22 @@
  <span id="more"></span>
 
 <h2 id="如果GitHub（远端）代码未出现更新的情况下"><a href="#如果GitHub（远端）代码未出现更新的情况下" class="headerlink" title="如果GitHub（远端）代码未出现更新的情况下"></a>如果GitHub（远端）代码未出现更新的情况下</h2><ol>
-<li>‘git clone &#x2F;&#x2F;‘ 将项目爬取到本地</li>
-<li>‘git checkout -b xxx’ 切换至本地新分支xxx<br><strong>相当于复制了remote仓库到本地的xxx分支上</strong></li>
+<li><code>git clone //</code> 将项目爬取到本地</li>
+<li><code>git checkout -b xxx</code> 切换至本地新分支xxx<br><strong>相当于复制了remote仓库到本地的xxx分支上</strong></li>
 <li>修改或者添加本地代码<br><strong>修改的代码本质上是修改本地磁盘上的源码，本地git和远程git都不会变化</strong></li>
-<li>‘git diff’ 用于查看此次修改的主要内容</li>
-<li>‘git add (file)’ 将file文件上传至暂存区，一般来说可以直接用 ‘git add .’将整个当前目录上传</li>
-<li>‘git commit ‘ 将暂存区的代码上传至本地git</li>
-<li>‘git push origin xxx’ 将本地git上的xxx分支上传至remote仓库(即github上的仓库)</li>
+<li><code>git diff</code> 用于查看此次修改的主要内容</li>
+<li><code>git add (file)</code> 将file文件上传至暂存区，一般来说可以直接用 <code>git add .</code>将整个当前目录上传</li>
+<li><code>git commit </code> 将暂存区的代码上传至本地git</li>
+<li><code>git push origin xxx</code> 将本地git上的xxx分支上传至remote仓库(即github上的仓库)</li>
 </ol>
 <hr>
 <h2 id="如果GitHub（远端）代码在你修改的过程中，源码出现了更新"><a href="#如果GitHub（远端）代码在你修改的过程中，源码出现了更新" class="headerlink" title="如果GitHub（远端）代码在你修改的过程中，源码出现了更新"></a>如果GitHub（远端）代码在你修改的过程中，源码出现了更新</h2><ol>
 <li>前6步与上面相同</li>
-<li>‘git checkout main’ 切换回主分支（main)</li>
-<li>‘git pull origin master’ 将远端代码再更新到本地的main分支上</li>
-<li>‘git checkout xxx’ 回到xxx分支上</li>
-<li>‘git rebase main’<br><strong>我在xxx分支上把main移过来,然后根据我的commit对新的main进行对接</strong><br><em>这其中可能会出现’rebase conflict’报错（不兼容—&gt;寄），需要手动选择保留哪个版本</em></li>
-<li>‘git push -f origin xxx’ 把rebase后并且更新过的代码push到远端的git仓库</li>
+<li><code>git checkout main</code> 切换回主分支（main)</li>
+<li><code>git pull origin master</code> 将远端代码再更新到本地的main分支上</li>
+<li><code>git checkout xxx</code> 回到xxx分支上</li>
+<li><code>git rebase main</code><br><strong>我在xxx分支上把main移过来,然后根据我的commit对新的main进行对接</strong><br><em>这其中可能会出现<code>rebase conflict</code>报错（不兼容—&gt;寄），需要手动选择保留哪个版本</em></li>
+<li><code>git push -f origin xxx</code> 把rebase后并且更新过的代码push到远端的git仓库</li>
 </ol>
 <hr>
 <h2 id="后续–合并仓库"><a href="#后续–合并仓库" class="headerlink" title="后续–合并仓库"></a>后续–合并仓库</h2><ol>
@@ -352,11 +352,11 @@
 <li>多个团队人员分工可以选择 squash and merge<br><em>开发人数少的话可以直接merge（虽然可能出现冗余）</em></li>
 </ol>
 <h2 id="后续–继续开发"><a href="#后续–继续开发" class="headerlink" title="后续–继续开发"></a>后续–继续开发</h2><ol>
-<li>‘git branch -d xxx’ 删除本地的xxx git分支</li>
-<li>‘git pull origin master’ 再把远端的新代码拉至本地</li>
+<li><code>git branch -d xxx</code> 删除本地的xxx git分支</li>
+<li><code>git pull origin master</code> 再把远端的新代码拉至本地</li>
 </ol>
 <hr>
-<h3 id="last"><a href="#last" class="headerlink" title="last"></a>last</h3><p>本篇博客至涉及到团队开发过程中的一种git管理方式，另外还可以采用fork仓库等操作来取代建立xxx新分支的操作。另外，文中的一些操作细节可根据自己需要添加，如’git commit -m’ 添加提交标题等</p>
+<h3 id="last"><a href="#last" class="headerlink" title="last"></a>last</h3><p>本篇博客至涉及到团队开发过程中的一种git管理方式，另外还可以采用fork仓库等操作来取代建立xxx新分支的操作。另外，文中的一些操作细节可根据自己需要添加，如<code>git commit -m</code> 添加提交标题等</p>
 <blockquote>
 <p>文章创作来源：<br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV19e4y1q7JJ/?spm_id_from=333.788.top_right_bar_window_default_collection.content.click">https://www.bilibili.com/video/BV19e4y1q7JJ/?spm_id_from=333.788.top_right_bar_window_default_collection.content.click</a></p>
 </blockquote>
