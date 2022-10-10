@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="-算法 -acm," />
+  <meta name="keywords" content="算法,acm," />
 
 
 
@@ -87,9 +87,10 @@
 <meta property="og:description" content="昨天在课上始终没听懂一些细节，课后整理一下">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-10T15:29:07.000Z">
-<meta property="article:modified_time" content="2022-10-10T16:40:03.134Z">
+<meta property="article:modified_time" content="2022-10-10T16:52:03.560Z">
 <meta property="article:author" content="Paul.P3pp3r.zrx">
-<meta property="article:tag" content="-算法 -acm">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="acm">
 <meta name="twitter:card" content="summary">
 
 
@@ -407,68 +408,22 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
 <p><strong>迭代过程如下：</strong><br>对应<code>f[i][j]</code>来说，相当于<code>f[i-1][j]</code>情况下再加入了一个新物品，<br>因此我们可以选择加入或者不加入新的物品<br><em>如果不加入：</em><br>则有<code>f[i][j] = f[i-1][j]</code><br><em>如果加入：</em><br>则有<code>f[i][j] = f[i-1][j-v[i]]+w[i]</code><br>对此，我们取两者的较大值即可<br><code>Result = MAX( f[i-1][j] , f[i-1][j-v[i]]+w[i] )</code></p>
 <h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p><code>f[0][0] = 0</code>或者直接定义全局变量数组-&gt;全部初始化为0</p>
 <h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><p>结果不需要从0开始遍历，因为<code>f[n][m]</code>就是结果<br>哪怕最大值有多个地方出现，最后的<code>f[n][m]</code>也一定是最大值,因为状态可以迭代过来</p>
-<h3 id="代码（二维）"><a href="#代码（二维）" class="headerlink" title="代码（二维）"></a>代码（二维）</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include&lt;bits&#x2F;stdc++.h&gt;
-
-using namespace std;
-
-const int MAXN  &#x3D;  1005;
-int v[MAXN];    &#x2F;&#x2F; 体积
-int w[MAXN];    &#x2F;&#x2F; 价值 
-int f[MAXN][MAXN];  &#x2F;&#x2F; f[i][j], j体积下前i个物品的最大价值 
-
-int main() 
-&#123;
-    int n, m;   
-    cin &gt;&gt; n &gt;&gt; m;
-    for(int i  &#x3D;  1; i &lt; &#x3D;  n; i++) 
-        cin &gt;&gt; v[i] &gt;&gt; w[i];
-
-    for(int i  &#x3D;  1; i &lt; &#x3D;  n; i++) 
-        for(int j  &#x3D;  1; j &lt; &#x3D;  m; j++)
-        &#123;
-            &#x2F;&#x2F;  当前背包容量装不进第i个物品，则价值等于前i-1个物品
-            if(j &lt; v[i]) 
-                f[i][j]  &#x3D;  f[i - 1][j];
-            &#x2F;&#x2F; 能装，需进行决策是否选择第i个物品
-            else    
-                f[i][j]  &#x3D;  max(f[i - 1][j], f[i - 1][j - v[i]] + w[i]);
-        &#125;           
-
-    cout &lt;&lt; f[n][m] &lt;&lt; endl;
-
-    return 0;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="代码（二维）"><a href="#代码（二维）" class="headerlink" title="代码（二维）"></a>代码（二维）</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> MAXN  =  <span class="number">1005</span>;</span><br><span class="line"><span class="type">int</span> v[MAXN];    <span class="comment">// 体积</span></span><br><span class="line"><span class="type">int</span> w[MAXN];    <span class="comment">// 价值 </span></span><br><span class="line"><span class="type">int</span> f[MAXN][MAXN];  <span class="comment">// f[i][j], j体积下前i个物品的最大价值 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m;   </span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i  =  <span class="number">1</span>; i &lt; =  n; i++) </span><br><span class="line">        cin &gt;&gt; v[i] &gt;&gt; w[i];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i  =  <span class="number">1</span>; i &lt; =  n; i++) </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j  =  <span class="number">1</span>; j &lt; =  m; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//  当前背包容量装不进第i个物品，则价值等于前i-1个物品</span></span><br><span class="line">            <span class="keyword">if</span>(j &lt; v[i]) </span><br><span class="line">                f[i][j]  =  f[i - <span class="number">1</span>][j];</span><br><span class="line">            <span class="comment">// 能装，需进行决策是否选择第i个物品</span></span><br><span class="line">            <span class="keyword">else</span>    </span><br><span class="line">                f[i][j]  =  <span class="built_in">max</span>(f[i - <span class="number">1</span>][j], f[i - <span class="number">1</span>][j - v[i]] + w[i]);</span><br><span class="line">        &#125;           </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; f[n][m] &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>此处数据样例：5 10<br> 1 5<br> 2 4<br> 3 3<br> 4 2<br> 5 1</p>
 </blockquote>
 <p>-&gt;<strong>14</strong></p>
 <hr>
-<h2 id="优化–-gt-二维转一维"><a href="#优化–-gt-二维转一维" class="headerlink" title="优化–&gt;二维转一维"></a>优化–&gt;二维转一维</h2><h3 id="代码（一维）"><a href="#代码（一维）" class="headerlink" title="代码（一维）"></a>代码（一维）</h3><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;省略了输入输出,只保留处理部分
-for(int i  &#x3D;  1; i &lt; &#x3D;  n; i++)
-&#123;
-    for(int j  &#x3D;  m; j &gt; &#x3D;  v[i]; j--)  
-        f[j]  &#x3D;  max(f[j], f[j - v[i]] + w[i]);
-&#125; 
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="优化–-gt-二维转一维"><a href="#优化–-gt-二维转一维" class="headerlink" title="优化–&gt;二维转一维"></a>优化–&gt;二维转一维</h2><h3 id="代码（一维）"><a href="#代码（一维）" class="headerlink" title="代码（一维）"></a>代码（一维）</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//省略了输入输出,只保留处理部分</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i  =  <span class="number">1</span>; i &lt; =  n; i++)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j  =  m; j &gt; =  v[i]; j--)  </span><br><span class="line">        f[j]  =  <span class="built_in">max</span>(f[j], f[j - v[i]] + w[i]);</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="三个问题："><a href="#三个问题：" class="headerlink" title="三个问题："></a>三个问题：</h3><p><em><strong>为什么可以转一维？</strong></em><br>因为我们只需要求出当前 n,m 下的最优解即可，<br>而<code>f[i][j]</code>的二维形式可以作为求出任意 i,j 下的解<br>所以可以转化为一维进行求解</p>
 <p><em><strong>为什么要逆序（j从m开始 j–)？</strong></em><br>因为假设当前的状态是i<br>那么<code>f[j-v[i]]</code>必定在<code>f[j]</code>前已经计算过，<br>此时算出来的<code>f[j-v[i]]</code>等价于二维时的<code>f[i][j-v[i]]</code><br>即迭代到i时，我在<code>j-v[i]</code>的容积下可能已经装入过第i个物品，因此，如果此时在j时装入第i个物品，<code>f[j-v[i]]+w[i]</code>是失效的，因为<code>f[j-v[i]]</code>已经用第i个新物品装过了，俗称被<strong>污染</strong>了<br>所以，如果我们倒序遍历的话就可以做到，<code>f[j]</code>装入第i个物品时使用还没被污染的<code>f[j-v[i]]</code>即二维状态下的<code>f[i-1][j-v[i]]</code></p>
 <p><em><strong>为什么要从判断条件为j&gt; &#x3D; v[i]？</strong></em><br>因为当我们在循环中做判断时，</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">if(j&lt;v[i])
-f[j] &#x3D; f[j] &#x2F;&#x2F;（一维）
-&#x2F;&#x2F; 即 f[i][j] &#x3D; f[i-1][j] (二维）
-所以一维状态下，这句话是可以省略掉的
-if(j&gt; &#x3D; v[i])
-f[j] &#x3D; f[j-v[i]]+w[i]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(j&lt;v[i])</span><br><span class="line">f[j] = f[j] <span class="comment">//（一维）</span></span><br><span class="line"><span class="comment">// 即 f[i][j] = f[i-1][j] (二维）</span></span><br><span class="line">所以一维状态下，这句话是可以省略掉的</span><br><span class="line"><span class="keyword">if</span>(j&gt; = v[i])</span><br><span class="line">f[j] = f[j-v[i]]+w[i]</span><br></pre></td></tr></table></figure>
 <p>既然 j 只在<code>j&gt; = v[i]</code>时变化，那么可以在循环中修改判断条件<br>让 j 从 m 倒序到 v[i] 即可，因为再减下去结果也不会变化</p>
 <hr>
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="特殊优化"><a href="#特殊优化" class="headerlink" title="特殊优化"></a>特殊优化</h3><p>有些题目在特定优化下可以做到一边输入一边处理<br>但由于数据的不同例如：<br><em>可以同时输入价值和体积</em><br>1 5<br>2 4<br>3 3<br>4 2<br>5 1<br><em>也可以先输出完所有价值，再输出所有体积</em><br>1 2 3 4 5<br>5 4 3 2 1<br>前一类数据输入方式可以进行优化处理，后一类不行，因此不再过多介绍新的优化方式，仅提供前一类的优化代码</p>
-<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">for(int i  &#x3D;  1; i &lt; &#x3D;  n; i++) &#123;
-        int v, w;
-        cin &gt;&gt; v &gt;&gt; w;      &#x2F;&#x2F; 边输入边处理
-        for(int j  &#x3D;  m; j &gt; &#x3D;  v; j--)
-            f[j]  &#x3D;  max(f[j], f[j - v] + w);
-    &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i  =  <span class="number">1</span>; i &lt; =  n; i++) &#123;</span><br><span class="line">        <span class="type">int</span> v, w;</span><br><span class="line">        cin &gt;&gt; v &gt;&gt; w;      <span class="comment">// 边输入边处理</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j  =  m; j &gt; =  v; j--)</span><br><span class="line">            f[j]  =  <span class="built_in">max</span>(f[j], f[j - v] + w);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h3 id="对逆序的其他解释"><a href="#对逆序的其他解释" class="headerlink" title="对逆序的其他解释"></a>对逆序的其他解释</h3><blockquote>
 <p>如果使用顺序，会先更新<code>f[4]</code>,再更新<code>f[7]</code>，对于这个书包问题来讲，就是有可能，在更新<code>f[4]</code>的时候，已经把这次能加的物品加进来了，然后更新<code>f[7]</code>的时候，还有可能再加一次，所以必须使用逆序，保证，<code>f[4]</code>是没有加入新物品前，背包里的最优解。</p>
 </blockquote>
@@ -493,7 +448,9 @@ f[j] &#x3D; f[j-v[i]]+w[i]<span aria-hidden="true" class="line-numbers-rows"><sp
       
         <div class="post-tags">
           
-            <a href="/tags/%E7%AE%97%E6%B3%95-acm/" rel="tag"># -算法 -acm</a>
+            <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          
+            <a href="/tags/acm/" rel="tag"># acm</a>
           
         </div>
       
@@ -616,7 +573,7 @@ f[j] &#x3D; f[j-v[i]]+w[i]<span aria-hidden="true" class="line-numbers-rows"><sp
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
