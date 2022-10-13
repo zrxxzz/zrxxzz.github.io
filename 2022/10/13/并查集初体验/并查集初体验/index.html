@@ -82,19 +82,19 @@
 <meta name="description" content="前天acm课上的并查集挺简单的，但是遇到了一道难题，总结一下">
 <meta property="og:type" content="article">
 <meta property="og:title" content="并查集初体验">
-<meta property="og:url" content="http://zrxxzz.github.io/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/index.html">
+<meta property="og:url" content="http://zrxxzz.github.io/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/index.html">
 <meta property="og:site_name" content="BLOG">
 <meta property="og:description" content="前天acm课上的并查集挺简单的，但是遇到了一道难题，总结一下">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://zrxxzz.github.io/public/images/41774_bd485030c0-JIE.jpg">
-<meta property="og:image" content="http://zrxxzz.github.io/public/images/%E9%A3%9F%E7%89%A9%E9%93%BE%E7%BD%91%E8%AF%BE%E6%88%AA%E5%9B%BE.png">
+<meta property="og:image" content="http://zrxxzz.github.io/41774_bd485030c0-JIE.jpg">
+<meta property="og:image" content="http://zrxxzz.github.io/%E9%A3%9F%E7%89%A9%E9%93%BE%E7%BD%91%E8%AF%BE%E6%88%AA%E5%9B%BE.png">
 <meta property="article:published_time" content="2022-10-13T15:03:35.000Z">
-<meta property="article:modified_time" content="2022-10-13T16:28:10.898Z">
+<meta property="article:modified_time" content="2022-10-13T16:58:56.950Z">
 <meta property="article:author" content="Paul.P3pp3r.zrx">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="acm">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://zrxxzz.github.io/public/images/41774_bd485030c0-JIE.jpg">
+<meta name="twitter:image" content="http://zrxxzz.github.io/41774_bd485030c0-JIE.jpg">
 
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="http://zrxxzz.github.io/2022/10/13/并查集初体验/"/>
+  <link rel="canonical" href="http://zrxxzz.github.io/2022/10/13/并查集初体验/并查集初体验/"/>
 
 
 
@@ -270,7 +270,7 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://zrxxzz.github.io/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/">
+    <link itemprop="mainEntityOfPage" href="http://zrxxzz.github.io/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -340,8 +340,8 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/" itemprop="commentCount"></span>
+                <a href="/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -498,8 +498,8 @@ color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
 </ol>
 <p><strong>核心要点</strong></p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p[x]!=x)&#123;</span><br><span class="line">    <span class="type">int</span> tmp=<span class="built_in">find</span>(p[x]);</span><br><span class="line">    d[x]+=d[p[x]];</span><br><span class="line">    p[x]=tmp;</span><br><span class="line">    &#125;<span class="keyword">return</span> p[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>为什么先用<code>tmp</code>存储祖先值?<br><code>d[x]</code>明明表示到父节点距离，为什么<code>d[x]+=d[p[x]]</code>可以做到<code>d[x]</code>获得到根节点的距离？<br>这里我的解释可能不如一张图来的清楚<br><img src="/../../public/images/41774_bd485030c0-JIE.jpg" alt="递归状态转移样例"></p>
-<p>另外，对于合并后，距离的处理也很重要<br><img src="/../../public/images/%E9%A3%9F%E7%89%A9%E9%93%BE%E7%BD%91%E8%AF%BE%E6%88%AA%E5%9B%BE.png" alt="祖先距离处理"><br>以图为例，图中的 X 与 Y 为同类，那么 X 的祖先 PX 可以修改其祖先为 Y 的祖先 PY 这样合并后，PX 到 PY 的距离怎么处理？<br>因为两者为同类<br>可以列出图中右边等式<code>(d[x] + d[px]) % 3 = d[y] %3</code><br>因此可以将<code>d[y] - d[x]</code>的值直接赋给<code>d[px]</code><br>以此实现两者同类<br>（异类如A吃B，转换方式类似，不再赘述）</p>
+<p>为什么先用<code>tmp</code>存储祖先值?<br><code>d[x]</code>明明表示到父节点距离，为什么<code>d[x]+=d[p[x]]</code>可以做到<code>d[x]</code>获得到根节点的距离？<br>这里我的解释可能不如一张图来的清楚<br><img src="/41774_bd485030c0-JIE.jpg" alt="递归状态转移样例"></p>
+<p>另外，对于合并后，距离的处理也很重要<br><img src="/%E9%A3%9F%E7%89%A9%E9%93%BE%E7%BD%91%E8%AF%BE%E6%88%AA%E5%9B%BE.png" alt="祖先距离处理"><br>以图为例，图中的 X 与 Y 为同类，那么 X 的祖先 PX 可以修改其祖先为 Y 的祖先 PY 这样合并后，PX 到 PY 的距离怎么处理？<br>因为两者为同类<br>可以列出图中右边等式<code>(d[x] + d[px]) % 3 = d[y] %3</code><br>因此可以将<code>d[y] - d[x]</code>的值直接赋给<code>d[px]</code><br>以此实现两者同类<br>（异类如A吃B，转换方式类似，不再赘述）</p>
 <h2 id="感谢各位的阅读，希望能给你带来帮助，欢迎留言"><a href="#感谢各位的阅读，希望能给你带来帮助，欢迎留言" class="headerlink" title="感谢各位的阅读，希望能给你带来帮助，欢迎留言"></a>感谢各位的阅读，希望能给你带来帮助，欢迎留言</h2><p><del>hhh，偷题有种犯醉的感觉</del></p>
 
       
