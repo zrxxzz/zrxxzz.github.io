@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="算法,acm," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前天acm课上的并查集挺简单的，但是遇到了一道难题，总结一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并查集初体验">
+<meta property="og:url" content="http://zrxxzz.github.io/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/index.html">
+<meta property="og:site_name" content="BLOG">
+<meta property="og:description" content="前天acm课上的并查集挺简单的，但是遇到了一道难题，总结一下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zrxxzz.github.io/public/images/41774_bd485030c0-JIE.jpg">
+<meta property="og:image" content="http://zrxxzz.github.io/public/images/%E9%A3%9F%E7%89%A9%E9%93%BE%E7%BD%91%E8%AF%BE%E6%88%AA%E5%9B%BE.png">
+<meta property="article:published_time" content="2022-10-13T15:03:35.000Z">
+<meta property="article:modified_time" content="2022-10-13T16:17:48.087Z">
+<meta property="article:author" content="Paul.P3pp3r.zrx">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="acm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zrxxzz.github.io/public/images/41774_bd485030c0-JIE.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zrxxzz.github.io/2022/10/13/并查集初体验/"/>
+
+
+
+
+
+  <title>并查集初体验 | BLOG</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--动态线条背景-->
+<script type="text/javascript"
+color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">keep fighting</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zrxxzz.github.io/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">并查集初体验</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-10-13T23:03:35+08:00">
+                2022-10-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/" itemprop="url" rel="index">
+                    <span itemprop="name">acm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  22k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  20 mins.
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>前天acm课上的并查集挺简单的，但是遇到了一道难题，总结一下</center>
+<span id="more"></span>
+
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p><em>问题一</em><br>一共有 n 个数，编号是 1∼n，最开始每个数各自在一个集合中。</p>
+<p>现在要进行 m 个操作，操作共有两种：</p>
+<ol>
+<li><code>M a b</code>，将编号为 a 和 b 的两个数所在的集合合并，如果两个数已经在同一个集合中，则忽略这个操作；</li>
+<li><code>Q a b</code>，询问编号为 a 和 b 的两个数是否在同一个集合中；</li>
+</ol>
+<p><strong>输入格式</strong></p>
+<p>第一行输入整数 n 和 m。</p>
+<p>接下来 m 行，每行包含一个操作指令，指令为 M a b 或 Q a b 中的一种。</p>
+<p><strong>输出格式</strong></p>
+<p>对于每个询问指令 Q a b，都要输出一个结果，如果 a 和 b 在同一集合内，则输出 Yes，否则输出 No。</p>
+<p>每个结果占一行。</p>
+<p>数据范围</p>
+<blockquote>
+<p>1≤n,m≤1051≤n,m≤105</p>
+</blockquote>
+<p><strong>输入样例：</strong></p>
+<blockquote>
+<p>4 5<br>M 1 2<br>M 3 4<br>Q 1 2<br>Q 1 3<br>Q 3 4</p>
+</blockquote>
+<p><strong>输出样例：</strong></p>
+<blockquote>
+<p>Yes<br>No<br>Yes</p>
+</blockquote>
+<p><em>问题二</em><br>给定一个包含 n 个点（编号为 1∼n）的无向图，初始时图中没有边。</p>
+<p>现在要进行 m 个操作，操作共有三种：</p>
+<p><code>C a b</code>，在点 a 和点 b 之间连一条边，a 和 b 可能相等；<br><code>Q1 a b</code>，询问点 a 和点 b 是否在同一个连通块中，a 和 b 可能相等；<br><code>Q2 a</code>，询问点 a 所在连通块中点的数量；<br><strong>输入格式</strong><br>第一行输入整数 n 和 m。</p>
+<p>接下来 m 行，每行包含一个操作指令，指令为<code> C a b</code>，<code>Q1 a b</code> 或 <code>Q2 a</code> 中的一种。</p>
+<p><strong>输出格式</strong><br>对于每个询问指令 <code>Q1 a b</code>，如果 a 和 b 在同一个连通块中，则输出 <code>Yes</code>，否则输出 <code>No</code>。</p>
+<p>对于每个询问指令 <code>Q2 a</code>，输出一个整数表示点 a 所在连通块中点的数量</p>
+<p>每个结果占一行。</p>
+<p><strong>数据范围</strong></p>
+<blockquote>
+<p>1≤n,m≤1051≤n,m≤105</p>
+</blockquote>
+<p><strong>输入样例：</strong></p>
+<blockquote>
+<p>5 5<br>C 1 2<br>Q1 1 2<br>Q2 1<br>C 2 5<br>Q2 5</p>
+</blockquote>
+<p><strong>输出样例：</strong></p>
+<blockquote>
+<p>Yes<br>2<br>3</p>
+</blockquote>
+<p><em>问题三</em><br>动物王国中有三类动物 A,B,C，这三类动物的食物链构成了有趣的环形。</p>
+<p>A 吃 B，B 吃 C，C 吃 A。</p>
+<p>现有 N 个动物，以 1∼N 编号。</p>
+<p>每个动物都是 A,B,C 中的一种，但是我们并不知道它到底是哪一种。</p>
+<p>有人用两种说法对这 N 个动物所构成的食物链关系进行描述：</p>
+<p>第一种说法是 <code>1 X Y</code>，表示 X 和 Y 是同类。</p>
+<p>第二种说法是 <code>2 X Y</code>，表示 X 吃 Y。</p>
+<p>此人对 N 个动物，用上述两种说法，一句接一句地说出 K 句话，这 K 句话有的是真的，有的是假的。</p>
+<p>当一句话满足下列三条之一时，这句话就是假话，否则就是真话。</p>
+<ol>
+<li>当前的话与前面的某些真的话冲突，就是假话；</li>
+<li>当前的话中 X 或 Y 比 N 大，就是假话；</li>
+<li>当前的话表示 X 吃 X，就是假话。<br>你的任务是根据给定的 N 和 K 句话，输出假话的总数。</li>
+</ol>
+<p><strong>输入格式</strong><br>第一行是两个整数 N 和 K，以一个空格分隔。</p>
+<p>以下 K 行每行是三个正整数 D，X，Y，两数之间用一个空格隔开，其中 DD 表示说法的种类。</p>
+<p>若 D&#x3D;1，则表示 X 和 Y 是同类。</p>
+<p>若 D&#x3D;2，则表示 X 吃 Y。</p>
+<p><strong>输出格式</strong><br>只有一个整数，表示假话的数目。</p>
+<p><strong>数据范围</strong></p>
+<blockquote>
+<p>1≤N≤50000<br>0≤K≤100000</p>
+</blockquote>
+<p><strong>输入样例：</strong></p>
+<blockquote>
+<p>100 7<br>1 101 1<br>2 1 2<br>2 2 3<br>2 3 3<br>1 1 3<br>2 3 1<br>1 5 5</p>
+</blockquote>
+<p><strong>输出样例：</strong></p>
+<blockquote>
+<p>3</p>
+</blockquote>
+<h2 id="算法核心思路"><a href="#算法核心思路" class="headerlink" title="算法核心思路"></a>算法核心思路</h2><p>通过递归找到祖先节点<br>压缩路径<br><strong>拓展</strong><br>处理压缩路径时父节点的状态<br>（尤其是修改状态和祖先归并的先后顺序）<br>如果状态可以分类的话，可以再尝试用周期记录状态<br><strong>核心代码</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span> <span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p[x]!=x)p[x]=<span class="built_in">find</span>(p[x]);</span><br><span class="line">    <span class="keyword">return</span> p[x];</span><br><span class="line">    <span class="comment">//p[x]为x的父节点，find(x)为x的祖先节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>不断递归压缩路径，最后达到任意子节点的父节点都是祖先节点</p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p><em>问题一</em><br><strong>源码</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">1000010</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> p[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p[x]!=x)p[x]=<span class="built_in">find</span>(p[x]);</span><br><span class="line">    <span class="keyword">return</span> p[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)p[i]=i;</span><br><span class="line">    <span class="keyword">while</span>(m--)&#123;</span><br><span class="line">        <span class="type">char</span> ch[<span class="number">2</span>];</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        cin&gt;&gt;ch&gt;&gt;a&gt;&gt;b;</span><br><span class="line">        <span class="keyword">if</span>(ch[<span class="number">0</span>]==<span class="string">&#x27;M&#x27;</span>)&#123;</span><br><span class="line">        p[<span class="built_in">find</span>(a)]=<span class="built_in">find</span>(b);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(ch[<span class="number">0</span>]==<span class="string">&#x27;Q&#x27;</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">find</span>(a)==<span class="built_in">find</span>(b))cout&lt;&lt;<span class="string">&quot;Yes&quot;</span>&lt;&lt;endl;</span><br><span class="line">            <span class="keyword">else</span> cout&lt;&lt;<span class="string">&quot;No&quot;</span>&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>没什么好说的，只是单纯的套用了并查集的模板</p>
+<p><em>问题二</em><br><strong>源码</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">100010</span>;</span><br><span class="line"><span class="type">int</span> p[N];</span><br><span class="line"><span class="type">int</span> s[N];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span> <span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p[x]!=x)p[x]=<span class="built_in">find</span>(p[x]);</span><br><span class="line">    <span class="keyword">return</span> p[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n,m;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">    p[i]=i;</span><br><span class="line">    s[i]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(m--)&#123;</span><br><span class="line">        string ch;</span><br><span class="line">        <span class="type">int</span> a,b;</span><br><span class="line">        cin&gt;&gt;ch;</span><br><span class="line">        <span class="keyword">if</span>(ch==<span class="string">&quot;C&quot;</span>)&#123;</span><br><span class="line">            cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">find</span>(a)==<span class="built_in">find</span>(b))<span class="keyword">continue</span>;</span><br><span class="line">            s[<span class="built_in">find</span>(b)]+=s[<span class="built_in">find</span>(a)];</span><br><span class="line">            p[<span class="built_in">find</span>(a)]=<span class="built_in">find</span>(b);</span><br><span class="line"></span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch==<span class="string">&quot;Q1&quot;</span>)&#123;</span><br><span class="line">            cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">find</span>(a)==<span class="built_in">find</span>(b))cout&lt;&lt;<span class="string">&quot;Yes&quot;</span>&lt;&lt;endl;</span><br><span class="line">            <span class="keyword">else</span> cout&lt;&lt;<span class="string">&quot;No&quot;</span>&lt;&lt;endl;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(ch==<span class="string">&quot;Q2&quot;</span>)&#123;</span><br><span class="line">            cin&gt;&gt;a;</span><br><span class="line">           cout&lt;&lt;s[<span class="built_in">find</span>(a)]&lt;&lt;endl;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解题过程和反思</strong><br>问题二在问题一的基础上添加了查找同类个数的要求<br>一开始我直接暴力枚举<br><del>不出意外</del>超时了<br>后来想了想可能会再开一个数组去记录每次合并后的个数状态<br>自己写的时候出现了问题，但是几乎题解代码一模一样<br>细看后发现了<strong>重点</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(ch==<span class="string">&quot;C&quot;</span>)&#123;</span><br><span class="line">            cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">            <span class="keyword">if</span>(<span class="built_in">find</span>(a)==<span class="built_in">find</span>(b))<span class="keyword">continue</span>;</span><br><span class="line">            s[<span class="built_in">find</span>(b)]+=s[<span class="built_in">find</span>(a)];</span><br><span class="line">            p[<span class="built_in">find</span>(a)]=<span class="built_in">find</span>(b);</span><br><span class="line">            <span class="comment">//p[find(a)]=find(b);</span></span><br><span class="line">            <span class="comment">//s[find(b)]+=s[find(a)];</span></span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>注释掉的是我写的顺序<br>确实出现了问题，如果先合并祖先，会导致我后面<code>find(b)=find(a)</code><br>从而影响<code>s[find(b)]+=s[find(a)]</code>的结果<br>（要想好状态转换和合并的顺序）<br>（为下一题埋下伏笔）</p>
+<p><em>问题三</em><br>（编码难度跨度挺大的，不过思路的理解还好）<br><strong>源码</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> M=<span class="number">50010</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> p[M],d[M];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p[x]!=x)&#123;</span><br><span class="line">    <span class="type">int</span> tmp=<span class="built_in">find</span>(p[x]);</span><br><span class="line">    d[x]+=d[p[x]];</span><br><span class="line">    p[x]=tmp;</span><br><span class="line">    &#125;<span class="keyword">return</span> p[x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> N,K; </span><br><span class="line">    <span class="type">int</span> res=<span class="number">0</span>;</span><br><span class="line">    cin&gt;&gt;N&gt;&gt;K;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=N;i++)p[i]=i;</span><br><span class="line">    <span class="keyword">while</span>(K--)&#123;</span><br><span class="line">        <span class="type">int</span> a,b,t;</span><br><span class="line"></span><br><span class="line">        cin&gt;&gt;t&gt;&gt;a&gt;&gt;b;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(a&gt;N||b&gt;N)res++;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="type">int</span> pa=<span class="built_in">find</span>(a);</span><br><span class="line">        <span class="type">int</span> pb=<span class="built_in">find</span>(b);</span><br><span class="line">        <span class="keyword">if</span>(t==<span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa==pb&amp;&amp;(d[a]-d[b])%<span class="number">3</span>)res++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(pa!=pb)&#123;</span><br><span class="line">                p[pa]=pb;</span><br><span class="line">                d[pa]=d[b]-d[a];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(t==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa==pb&amp;&amp;(d[a]-d[b]<span class="number">-1</span>)%<span class="number">3</span>)res++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(pa!=pb)&#123;</span><br><span class="line">                p[pa]=pb;</span><br><span class="line">                d[pa]=d[b]+<span class="number">1</span>-d[a];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;res&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>解题过程和反思</strong><br>对于我这种算法菜鸡来说一开始上手还是挺难的，最多做到合并同类<br>对于处理谁吃谁或者说分类，没有任何思路<br>直接看了题解，令人拍案叫绝<br>同样多开了一个数组<br>用来记录到到根节点的距离</p>
+<ol>
+<li>距离余数为1则说明<em>该类物质吃根节点</em></li>
+<li>距离余数为2则说明<em>根节点吃该类物质，同时该类物质吃距离余数为1的物质</em></li>
+<li>距离余数为0则说明<em>该类物质与根节点物质同类</em><br>因为一共就三类，所以用这类取余的做法还是很妙的</li>
+</ol>
+<p><strong>核心要点</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find</span><span class="params">(<span class="type">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(p[x]!=x)&#123;</span><br><span class="line">    <span class="type">int</span> tmp=<span class="built_in">find</span>(p[x]);</span><br><span class="line">    d[x]+=d[p[x]];</span><br><span class="line">    p[x]=tmp;</span><br><span class="line">    &#125;<span class="keyword">return</span> p[x];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为什么先用<code>tmp</code>存储祖先值?<br><code>d[x]</code>明明表示到父节点距离，为什么<code>d[x]+=d[p[x]]</code>可以做到<code>d[x]</code>获得到根节点的距离？<br>这里我的解释可能不如一张图来的清楚<br><img src="/../../public/images/41774_bd485030c0-JIE.jpg" alt="递归状态转移样例"></p>
+<p>另外，对于合并后，距离的处理也很重要<br><img src="/../../public/images/%E9%A3%9F%E7%89%A9%E9%93%BE%E7%BD%91%E8%AF%BE%E6%88%AA%E5%9B%BE.png" alt="祖先距离处理"><br>以图为例，图中的 X 与 Y 为同类，那么 X 的祖先 PX 可以修改其祖先为 Y 的祖先 PY 这样合并后，PX 到 PY 的距离怎么处理？<br>因为两者为同类<br>可以列出图中右边等式<code>(d[x] + d[px]) % 3 = d[y] %3</code><br>因此可以将<code>d[y] - d[x]</code>的值直接赋给<code>d[px]</code><br>以此实现两者同类<br>（异类如A吃B，转换方式类似，不再赘述）</p>
+<h2 id="感谢各位的阅读，希望能给你带来帮助，欢迎留言"><a href="#感谢各位的阅读，希望能给你带来帮助，欢迎留言" class="headerlink" title="感谢各位的阅读，希望能给你带来帮助，欢迎留言"></a>感谢各位的阅读，希望能给你带来帮助，欢迎留言</h2><p><del>hhh，偷题有种犯醉的感觉</del></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          
+            <a href="/tags/acm/" rel="tag"># acm</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/10/10/DP%E2%80%94%E2%80%94%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E5%9F%BA%E7%A1%80-01%E8%83%8C%E5%8C%85/" rel="next" title="DP——背包问题基础(01背包)">
+                <i class="fa fa-chevron-left"></i> DP——背包问题基础(01背包)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%A0%B8%E5%BF%83%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">算法核心思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%84%9F%E8%B0%A2%E5%90%84%E4%BD%8D%E7%9A%84%E9%98%85%E8%AF%BB%EF%BC%8C%E5%B8%8C%E6%9C%9B%E8%83%BD%E7%BB%99%E4%BD%A0%E5%B8%A6%E6%9D%A5%E5%B8%AE%E5%8A%A9%EF%BC%8C%E6%AC%A2%E8%BF%8E%E7%95%99%E8%A8%80"><span class="nav-number">4.</span> <span class="nav-text">感谢各位的阅读，希望能给你带来帮助，欢迎留言</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul.P3pp3r.zrx</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">10k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="footer.total_visitors">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="footer.total_views">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Sr3df8c5uWBo1584Nf7nP4tY-gzGzoHsz',
+        appKey: '92o63CdOfjoDQIsaIZ3ib4NE',
+        placeholder: 'commit your comments',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
