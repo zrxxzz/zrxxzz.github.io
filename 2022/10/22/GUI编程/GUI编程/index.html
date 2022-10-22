@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web,java," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="BLOG" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="最近学了一下GUI，补一下基础  GUI 学习 （SWING，AWT）可能注解文字比较少，代码比较多，因为大部分都写在注解里了视频链接 学习目的重点在于学习一下监听机制  写一些自己喜欢的小工具 维护swing界面 了解MVC架构，了解监听 回顾一下java语法康复训练  AWT 介绍 包含了很多类和接口 元素：窗口，按钮，文本框 包：java.awt 架构图 2.2     2.3  Frame">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GUI编程">
+<meta property="og:url" content="http://zrxxzz.github.io/2022/10/22/GUI%E7%BC%96%E7%A8%8B/GUI%E7%BC%96%E7%A8%8B/index.html">
+<meta property="og:site_name" content="BLOG">
+<meta property="og:description" content="最近学了一下GUI，补一下基础  GUI 学习 （SWING，AWT）可能注解文字比较少，代码比较多，因为大部分都写在注解里了视频链接 学习目的重点在于学习一下监听机制  写一些自己喜欢的小工具 维护swing界面 了解MVC架构，了解监听 回顾一下java语法康复训练  AWT 介绍 包含了很多类和接口 元素：窗口，按钮，文本框 包：java.awt 架构图 2.2     2.3  Frame">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zrxxzz.github.io/2022/10/22/GUI%E7%BC%96%E7%A8%8B/GUI%E7%BC%96%E7%A8%8B/AWT%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
+<meta property="og:image" content="http://zrxxzz.github.io/2022/10/22/GUI%E7%BC%96%E7%A8%8B/GUI%E7%BC%96%E7%A8%8B/GUI.png">
+<meta property="article:published_time" content="2022-10-22T03:00:17.000Z">
+<meta property="article:modified_time" content="2022-10-22T03:12:09.632Z">
+<meta property="article:author" content="Paul.P3pp3r.zrx">
+<meta property="article:tag" content="web">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zrxxzz.github.io/2022/10/22/GUI%E7%BC%96%E7%A8%8B/GUI%E7%BC%96%E7%A8%8B/AWT%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zrxxzz.github.io/2022/10/22/GUI编程/GUI编程/"/>
+
+
+
+
+
+  <title>GUI编程 | BLOG</title>
+  
+
+
+
+
+
+
+
+
+ 
+<meta name="generator" content="Hexo 6.3.0"></head>
+ <script src="/live2d-widget/autoload.js"></script>
+<!--动态线条背景-->
+<script type="text/javascript"
+color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">BLOG</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">keep fighting</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zrxxzz.github.io/2022/10/22/GUI%E7%BC%96%E7%A8%8B/GUI%E7%BC%96%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="BLOG">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GUI编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-10-22T11:00:17+08:00">
+                2022-10-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/10/22/GUI%E7%BC%96%E7%A8%8B/GUI%E7%BC%96%E7%A8%8B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/10/22/GUI%E7%BC%96%E7%A8%8B/GUI%E7%BC%96%E7%A8%8B/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  44k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  40 mins.
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>最近学了一下GUI，补一下基础</center>
+
+<h1 id="GUI-学习-（SWING，AWT）"><a href="#GUI-学习-（SWING，AWT）" class="headerlink" title="GUI 学习 （SWING，AWT）"></a>GUI 学习 （SWING，AWT）</h1><p><em>可能注解文字比较少，代码比较多，因为大部分都写在注解里了</em><br><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1DJ411B75F/?spm_id_from=333.999.0.0&vd_source=a733c3f0d600237b1444ffb02c86d655">视频链接</a></p>
+<h2 id="学习目的"><a href="#学习目的" class="headerlink" title="学习目的"></a>学习目的</h2><p><strong>重点在于学习一下监听机制</strong></p>
+<ol>
+<li>写一些自己喜欢的小工具</li>
+<li>维护swing界面</li>
+<li>了解MVC架构，了解监听</li>
+<li>回顾一下java语法<del>康复训练</del></li>
+</ol>
+<h2 id="AWT"><a href="#AWT" class="headerlink" title="AWT"></a>AWT</h2><ol>
+<li><p>介绍</p>
+<p>包含了很多类和接口</p>
+<p>元素：窗口，按钮，文本框</p>
+<p>包：java.awt</p>
+<p>架构图</p>
+<p>2.2 </p>
+<p><img src="/2022/10/22/GUI%E7%BC%96%E7%A8%8B/GUI%E7%BC%96%E7%A8%8B/AWT%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="架构图"></p>
+</li>
+</ol>
+<p>2.3  Frame</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> gui.lesson1;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">//gui 第一个界面</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">testfram</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="comment">//Frame</span></span><br><span class="line">        Frame test1=<span class="keyword">new</span> <span class="title class_">Frame</span>(<span class="string">&quot;my first java Figure Window&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置可见性</span></span><br><span class="line">        test1.setVisible(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置窗口大小</span></span><br><span class="line"></span><br><span class="line">        test1.setSize(<span class="number">400</span>,<span class="number">400</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置背景颜色</span></span><br><span class="line"></span><br><span class="line">        test1.setBackground(Color.BLACK);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//弹出的初始位置</span></span><br><span class="line">        test1.setLocation(<span class="number">200</span>,<span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置大小固定</span></span><br><span class="line">        test1.setResizable(<span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.4 Panel</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> gui.lesson1;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.WindowAdapter;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.WindowEvent;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.WindowListener;</span><br><span class="line"></span><br><span class="line"><span class="comment">//可以看成空间</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test_panel</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        Frame frame=<span class="keyword">new</span> <span class="title class_">Frame</span>();</span><br><span class="line">        <span class="comment">//布局</span></span><br><span class="line">        <span class="type">Panel</span> <span class="variable">panel</span> <span class="operator">=</span><span class="keyword">new</span> <span class="title class_">Panel</span>();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置布局</span></span><br><span class="line">        frame.setLayout(<span class="literal">null</span>);</span><br><span class="line">        <span class="comment">//  坐标</span></span><br><span class="line">        frame.setBounds(<span class="number">300</span>,<span class="number">300</span>,<span class="number">500</span>,<span class="number">500</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//</span></span><br><span class="line">        frame.setBackground(Color.green);</span><br><span class="line"></span><br><span class="line">        panel.setBounds(<span class="number">50</span>,<span class="number">50</span>,<span class="number">400</span>,<span class="number">400</span>);</span><br><span class="line"></span><br><span class="line">        panel.setBackground(Color.red);</span><br><span class="line"></span><br><span class="line">        frame.add(panel);</span><br><span class="line"></span><br><span class="line">        frame.setVisible(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//监听关闭事件</span></span><br><span class="line">        <span class="comment">//  e</span></span><br><span class="line">        frame.addWindowListener(<span class="keyword">new</span> <span class="title class_">WindowAdapter</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">windowClosing</span><span class="params">(WindowEvent e)</span> &#123;</span><br><span class="line">                System.exit(<span class="number">0</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>2.5布局管理器</p>
+<ul>
+<li><p>流式布局</p>
+</li>
+<li><p>东西南北中</p>
+</li>
+<li><p>表格布局</p>
+</li>
+</ul>
+<p>2.6 事件监听 ：监控某件事情</p>
+<p>可以多个按钮实现同一个监听</p>
+<p>利用actionCommand 增加命令属性，</p>
+<p>在监听的时候进行判断</p>
+<p>2.7 输入框Test FIeld</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> gui_lesson2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionEvent;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionListener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test_text</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="type">Myf</span> <span class="variable">myf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Myf</span>();</span><br><span class="line">        myf.setVisible(<span class="literal">true</span>);</span><br><span class="line">        myf.pack();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置个人面板来进行个性化设置</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Myf</span> <span class="keyword">extends</span> <span class="title class_">Frame</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Myf</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">TextField</span> <span class="variable">textField</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TextField</span>();</span><br><span class="line">        <span class="comment">//这个是文本框</span></span><br><span class="line">        add(textField);</span><br><span class="line">        <span class="comment">//下面的只是监听器</span></span><br><span class="line">        <span class="type">myac</span> <span class="variable">a</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">myac</span>();</span><br><span class="line">        <span class="comment">//按下输入框默认成为事件</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//设置编码</span></span><br><span class="line">        textField.setEchoChar(<span class="string">&#x27;*&#x27;</span>);</span><br><span class="line">        textField.addActionListener(a);</span><br><span class="line">        setBounds(<span class="number">200</span>, <span class="number">200</span>, <span class="number">200</span>, <span class="number">200</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">myac</span> <span class="keyword">implements</span> <span class="title class_">ActionListener</span> &#123;</span><br><span class="line"><span class="comment">//继承一个事件监听器接口</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="comment">//可以在这里设置一些对事件的操作内容</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">        <span class="comment">//因为在测试文本框所以，类型强制转换为文本框类</span></span><br><span class="line">        <span class="type">TextField</span> <span class="variable">file</span> <span class="operator">=</span> (TextField) e.getSource();<span class="comment">//获取对应资源</span></span><br><span class="line">        System.out.println(file.getText());<span class="comment">//输出文本框获得的文本</span></span><br><span class="line">        <span class="comment">//回车之后清空输入框</span></span><br><span class="line">        file.setText(<span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.7 应用—-&gt;简易计算器</p>
+<p>oop原则：组合大于继承</p>
+<p>面向过程和面向对象（两种）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> gui_lesson3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.imageio.plugins.tiff.TIFFTagSet;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionEvent;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionListener;</span><br><span class="line"><span class="keyword">import</span> java.util.Timer;</span><br><span class="line"></span><br><span class="line"><span class="comment">//主函数</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test_calc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">Calcu</span> <span class="variable">calcu</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Calcu</span>();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置计算器类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Calcu</span> <span class="keyword">extends</span> <span class="title class_">Frame</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    TextField nu1;</span><br><span class="line">    TextField nu2;</span><br><span class="line">    TextField nu3;</span><br><span class="line">    Button bn;</span><br><span class="line">    Label label;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Calcu</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//三个文本框</span></span><br><span class="line">         nu1 =<span class="keyword">new</span> <span class="title class_">TextField</span>(<span class="number">10</span>);<span class="comment">//字符数</span></span><br><span class="line">         nu2 =<span class="keyword">new</span> <span class="title class_">TextField</span>(<span class="number">10</span>);<span class="comment">//字符数</span></span><br><span class="line">         nu3 =<span class="keyword">new</span> <span class="title class_">TextField</span>(<span class="number">10</span>);<span class="comment">//字符数</span></span><br><span class="line">        <span class="comment">//一个按钮</span></span><br><span class="line">         bn  = <span class="keyword">new</span> <span class="title class_">Button</span>(<span class="string">&quot;=&quot;</span>);</span><br><span class="line">         bn.addActionListener(<span class="keyword">new</span> <span class="title class_">mycalclis</span>(<span class="built_in">this</span>));</span><br><span class="line">        <span class="comment">//一个标签</span></span><br><span class="line">        label = <span class="keyword">new</span> <span class="title class_">Label</span>(<span class="string">&quot;+&quot;</span>);</span><br><span class="line">        <span class="comment">//布局</span></span><br><span class="line">        setLayout(<span class="keyword">new</span> <span class="title class_">FlowLayout</span>());</span><br><span class="line">        add(nu1);</span><br><span class="line">        add(label);</span><br><span class="line">        add(nu2);</span><br><span class="line">        add(bn);</span><br><span class="line">        add(nu3);</span><br><span class="line">        setVisible(<span class="literal">true</span>);</span><br><span class="line">        pack();</span><br><span class="line">        setBounds(<span class="number">200</span>,<span class="number">200</span>,<span class="number">200</span>,<span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//监听器类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">mycalclis</span> <span class="keyword">implements</span> <span class="title class_">ActionListener</span>&#123;</span><br><span class="line">    <span class="comment">//获取三个变量的两种方法</span></span><br><span class="line">    <span class="comment">//常规方法</span></span><br><span class="line">   <span class="comment">/* private TextField nu1,nu2,nu3;</span></span><br><span class="line"><span class="comment">    public mycalclis(TextField nu1,TextField nu2,TextField nu3)&#123;</span></span><br><span class="line"><span class="comment">        this.nu1=nu1;</span></span><br><span class="line"><span class="comment">        this.nu2=nu2;</span></span><br><span class="line"><span class="comment">        this.nu3=nu3;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    <span class="comment">//简便方法</span></span><br><span class="line">    <span class="comment">//获取计算器整个类----&gt;&gt;组合</span></span><br><span class="line">    <span class="type">Calcu</span> <span class="variable">calcu</span> <span class="operator">=</span><span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">mycalclis</span><span class="params">(Calcu calcu)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.calcu=calcu;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">        <span class="comment">//获得加数</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        int n1=Integer.parseInt(nu1.getText());</span></span><br><span class="line"><span class="comment">        int n2=Integer.parseInt(nu2.getText());</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">        <span class="type">int</span> n1=Integer.parseInt(calcu.nu1.getText());</span><br><span class="line">        <span class="type">int</span> n2=Integer.parseInt(calcu.nu2.getText());</span><br><span class="line">        <span class="comment">//输出第三个结果</span></span><br><span class="line">        calcu.nu3.setText(<span class="string">&quot;&quot;</span>+(n1+n2));</span><br><span class="line">        <span class="comment">//清除两个框</span></span><br><span class="line">        calcu.nu1.setText(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        calcu.nu2.setText(<span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以设置<strong>内部类</strong>，</p>
+<p>把监听器作为计算器的内部类 就可以直接实现内部传参数；</p>
+<p>最大的好处，直接使用外部类参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置计算器类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Calcu</span> <span class="keyword">extends</span> <span class="title class_">Frame</span>&#123;</span><br><span class="line">    <span class="comment">//属性</span></span><br><span class="line">    TextField nu1;</span><br><span class="line">    TextField nu2;</span><br><span class="line">    TextField nu3;</span><br><span class="line">    Button bn;</span><br><span class="line">    Label label;</span><br><span class="line">    <span class="comment">//方法</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Calcu</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//三个文本框</span></span><br><span class="line">         nu1 =<span class="keyword">new</span> <span class="title class_">TextField</span>(<span class="number">10</span>);<span class="comment">//字符数</span></span><br><span class="line">         nu2 =<span class="keyword">new</span> <span class="title class_">TextField</span>(<span class="number">10</span>);<span class="comment">//字符数</span></span><br><span class="line">         nu3 =<span class="keyword">new</span> <span class="title class_">TextField</span>(<span class="number">10</span>);<span class="comment">//字符数</span></span><br><span class="line">        <span class="comment">//一个按钮</span></span><br><span class="line">         bn  = <span class="keyword">new</span> <span class="title class_">Button</span>(<span class="string">&quot;=&quot;</span>);</span><br><span class="line">         bn.addActionListener(<span class="keyword">new</span> <span class="title class_">mycalclis</span>());</span><br><span class="line">        <span class="comment">//一个标签</span></span><br><span class="line">        label = <span class="keyword">new</span> <span class="title class_">Label</span>(<span class="string">&quot;+&quot;</span>);</span><br><span class="line">        <span class="comment">//布局</span></span><br><span class="line">        setLayout(<span class="keyword">new</span> <span class="title class_">FlowLayout</span>());</span><br><span class="line">        add(nu1);</span><br><span class="line">        add(label);</span><br><span class="line">        add(nu2);</span><br><span class="line">        add(bn);</span><br><span class="line">        add(nu3);</span><br><span class="line">        setVisible(<span class="literal">true</span>);</span><br><span class="line">        pack();</span><br><span class="line">        setBounds(<span class="number">200</span>,<span class="number">200</span>,<span class="number">200</span>,<span class="number">200</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">class</span> <span class="title class_">mycalclis</span> <span class="keyword">implements</span> <span class="title class_">ActionListener</span>&#123;</span><br><span class="line">        <span class="comment">//获取三个变量的两种方法</span></span><br><span class="line">        <span class="comment">//常规方法</span></span><br><span class="line">   <span class="comment">/* private TextField nu1,nu2,nu3;</span></span><br><span class="line"><span class="comment">    public mycalclis(TextField nu1,TextField nu2,TextField nu3)&#123;</span></span><br><span class="line"><span class="comment">        this.nu1=nu1;</span></span><br><span class="line"><span class="comment">        this.nu2=nu2;</span></span><br><span class="line"><span class="comment">        this.nu3=nu3;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">        <span class="comment">//简便方法</span></span><br><span class="line">        <span class="comment">//获取计算器整个类----&gt;&gt;组合</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">            <span class="comment">//获得加数</span></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        int n1=Integer.parseInt(nu1.getText());</span></span><br><span class="line"><span class="comment">        int n2=Integer.parseInt(nu2.getText());</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">            <span class="type">int</span> n1=Integer.parseInt(nu1.getText());</span><br><span class="line">            <span class="type">int</span> n2=Integer.parseInt(nu2.getText());</span><br><span class="line">            <span class="comment">//输出第三个结果</span></span><br><span class="line">            nu3.setText(<span class="string">&quot;&quot;</span>+(n1+n2));</span><br><span class="line">            <span class="comment">//清除两个框</span></span><br><span class="line">            nu1.setText(<span class="string">&quot;&quot;</span>);</span><br><span class="line">            nu2.setText(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Swing"><a href="#Swing" class="headerlink" title="Swing"></a>Swing</h2><p>init初始化操作</p>
+<p>（标签居中）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> lesson_4;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JFrameDemo</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//顶级窗口</span></span><br><span class="line">        JFrame frameDemo=<span class="keyword">new</span> <span class="title class_">JFrame</span>();</span><br><span class="line">        frameDemo.setVisible(<span class="literal">true</span>);</span><br><span class="line">        frameDemo.setBounds(<span class="number">100</span>,<span class="number">100</span>,<span class="number">200</span>,<span class="number">200</span>);</span><br><span class="line">        <span class="comment">//设置文字</span></span><br><span class="line">        <span class="type">JLabel</span> <span class="variable">label</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="string">&quot;Jesus&quot;</span>);</span><br><span class="line">        frameDemo.add(label);</span><br><span class="line">        <span class="comment">//让文本居中</span></span><br><span class="line">        label.setHorizontalAlignment(SwingConstants.CENTER);</span><br><span class="line">        <span class="comment">//容器实例化</span></span><br><span class="line">        <span class="type">Container</span> <span class="variable">container</span> <span class="operator">=</span> frameDemo.getContentPane();</span><br><span class="line">        <span class="comment">//关闭事件</span></span><br><span class="line">    frameDemo.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//建立一个窗口</span></span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">JFrameDemo</span>().init();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>弹窗</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> lesson_4;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionEvent;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.ActionListener;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Bounds</span> <span class="keyword">extends</span> <span class="title class_">JFrame</span> &#123;</span><br><span class="line">    <span class="keyword">public</span>  <span class="title function_">Bounds</span><span class="params">()</span>&#123;</span><br><span class="line">        setVisible(<span class="literal">true</span>);</span><br><span class="line">        setSize(<span class="number">700</span>,<span class="number">500</span>);</span><br><span class="line">        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);</span><br><span class="line">        <span class="type">Container</span> <span class="variable">container</span> <span class="operator">=</span><span class="built_in">this</span>.getContentPane();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//绝对布局</span></span><br><span class="line">        container.setLayout(<span class="literal">null</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//按钮</span></span><br><span class="line">        <span class="type">JButton</span> <span class="variable">button</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JButton</span>(<span class="string">&quot;bounds&quot;</span>);</span><br><span class="line">        button.setBounds(<span class="number">30</span>,<span class="number">30</span>,<span class="number">200</span>,<span class="number">50</span>);</span><br><span class="line">        container.add(button);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//点击按钮的时候弹出一个弹窗</span></span><br><span class="line"></span><br><span class="line">        button.addActionListener(<span class="keyword">new</span> <span class="title class_">ActionListener</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">actionPerformed</span><span class="params">(ActionEvent e)</span> &#123;</span><br><span class="line">                <span class="comment">//弹窗</span></span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">mydialog</span>();</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Bounds</span> <span class="variable">bounds</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Bounds</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//编写弹窗</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">mydialog</span> <span class="keyword">extends</span> <span class="title class_">JDialog</span>&#123;</span><br><span class="line">   <span class="comment">//Ctrl+o 快速重写父类方法</span></span><br><span class="line">    <span class="comment">//不要乱用void</span></span><br><span class="line">    <span class="keyword">public</span>  <span class="title function_">mydialog</span><span class="params">()</span>&#123;</span><br><span class="line">        setBounds(<span class="number">100</span>,<span class="number">100</span>,<span class="number">500</span>,<span class="number">500</span>);</span><br><span class="line">        <span class="built_in">this</span>.setVisible(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">Container</span> <span class="variable">container</span> <span class="operator">=</span>  <span class="built_in">this</span>.getContentPane();</span><br><span class="line">        container.setLayout(<span class="literal">null</span>);</span><br><span class="line">        container.add(<span class="keyword">new</span> <span class="title class_">Label</span>(<span class="string">&quot;what&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结</p>
+<p>虽然拖了很久，但还是学到了不少</p>
+<p>浅学一下监听机制，为后期的框架学习做一点准备</p>
+<p><img src="/2022/10/22/GUI%E7%BC%96%E7%A8%8B/GUI%E7%BC%96%E7%A8%8B/GUI.png"></p>
+<p><em>最近有点懈怠了，需要警醒一下自己</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web/" rel="tag"># web</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/" rel="next" title="并查集初体验">
+                <i class="fa fa-chevron-left"></i> 并查集初体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GUI-%E5%AD%A6%E4%B9%A0-%EF%BC%88SWING%EF%BC%8CAWT%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">GUI 学习 （SWING，AWT）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E7%9A%84"><span class="nav-number">1.1.</span> <span class="nav-text">学习目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AWT"><span class="nav-number">1.2.</span> <span class="nav-text">AWT</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swing"><span class="nav-number">1.3.</span> <span class="nav-text">Swing</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul.P3pp3r.zrx</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">14k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="footer.total_visitors">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="footer.total_views">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Sr3df8c5uWBo1584Nf7nP4tY-gzGzoHsz',
+        appKey: '92o63CdOfjoDQIsaIZ3ib4NE',
+        placeholder: 'commit your comments',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
