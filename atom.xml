@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>BLOG</title>
+  <title>驿站</title>
   
-  <subtitle>keep fighting</subtitle>
+  <subtitle>分享与热爱</subtitle>
   <link href="http://zrxxzz.github.io/atom.xml" rel="self"/>
   
   <link href="http://zrxxzz.github.io/"/>
