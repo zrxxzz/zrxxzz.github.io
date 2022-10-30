@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>驿站</title>
+  <title>Hexo</title>
   
-  <subtitle>分享与热爱</subtitle>
-  <link href="http://zrxxzz.github.io/atom.xml" rel="self"/>
   
-  <link href="http://zrxxzz.github.io/"/>
+  <link href="http://example.com/atom.xml" rel="self"/>
+  
+  <link href="http://example.com/"/>
   <updated>2022-10-30T10:43:46.067Z</updated>
-  <id>http://zrxxzz.github.io/</id>
+  <id>http://example.com/</id>
   
   <author>
-    <name>Paul.P3pp3r.zrx</name>
+    <name>John Doe</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>BFS&amp;DFS</title>
-    <link href="http://zrxxzz.github.io/2022/10/30/BFS-DFS/"/>
-    <id>http://zrxxzz.github.io/2022/10/30/BFS-DFS/</id>
+    <link href="http://example.com/2022/10/30/BFS-DFS/"/>
+    <id>http://example.com/2022/10/30/BFS-DFS/</id>
     <published>2022-10-30T10:15:31.000Z</published>
     <updated>2022-10-30T10:43:46.067Z</updated>
     
@@ -30,19 +30,19 @@
     
     
     
-    <category term="acm" scheme="http://zrxxzz.github.io/categories/acm/"/>
+    <category term="acm" scheme="http://example.com/categories/acm/"/>
     
     
-    <category term="acm" scheme="http://zrxxzz.github.io/tags/acm/"/>
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="算法" scheme="http://zrxxzz.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="acm" scheme="http://example.com/tags/acm/"/>
     
   </entry>
   
   <entry>
     <title>GUI编程</title>
-    <link href="http://zrxxzz.github.io/2022/10/22/GUI%E7%BC%96%E7%A8%8B/"/>
-    <id>http://zrxxzz.github.io/2022/10/22/GUI%E7%BC%96%E7%A8%8B/</id>
+    <link href="http://example.com/2022/10/22/GUI%E7%BC%96%E7%A8%8B/"/>
+    <id>http://example.com/2022/10/22/GUI%E7%BC%96%E7%A8%8B/</id>
     <published>2022-10-22T03:00:17.000Z</published>
     <updated>2022-10-30T10:34:11.678Z</updated>
     
@@ -53,19 +53,19 @@
     
     
     
-    <category term="web" scheme="http://zrxxzz.github.io/categories/web/"/>
+    <category term="web" scheme="http://example.com/categories/web/"/>
     
     
-    <category term="web" scheme="http://zrxxzz.github.io/tags/web/"/>
+    <category term="web" scheme="http://example.com/tags/web/"/>
     
-    <category term="java" scheme="http://zrxxzz.github.io/tags/java/"/>
+    <category term="java" scheme="http://example.com/tags/java/"/>
     
   </entry>
   
   <entry>
     <title>并查集初体验</title>
-    <link href="http://zrxxzz.github.io/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
-    <id>http://zrxxzz.github.io/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/</id>
+    <link href="http://example.com/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
+    <id>http://example.com/2022/10/13/%E5%B9%B6%E6%9F%A5%E9%9B%86%E5%88%9D%E4%BD%93%E9%AA%8C/</id>
     <published>2022-10-13T15:03:35.000Z</published>
     <updated>2022-10-30T10:39:03.161Z</updated>
     
@@ -76,19 +76,19 @@
     
     
     
-    <category term="acm" scheme="http://zrxxzz.github.io/categories/acm/"/>
+    <category term="acm" scheme="http://example.com/categories/acm/"/>
     
     
-    <category term="acm" scheme="http://zrxxzz.github.io/tags/acm/"/>
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="算法" scheme="http://zrxxzz.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="acm" scheme="http://example.com/tags/acm/"/>
     
   </entry>
   
   <entry>
     <title>DP——背包问题基础(01背包)</title>
-    <link href="http://zrxxzz.github.io/2022/10/10/DP%E2%80%94%E2%80%94%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E5%9F%BA%E7%A1%80-01%E8%83%8C%E5%8C%85/"/>
-    <id>http://zrxxzz.github.io/2022/10/10/DP%E2%80%94%E2%80%94%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E5%9F%BA%E7%A1%80-01%E8%83%8C%E5%8C%85/</id>
+    <link href="http://example.com/2022/10/10/DP%E2%80%94%E2%80%94%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E5%9F%BA%E7%A1%80-01%E8%83%8C%E5%8C%85/"/>
+    <id>http://example.com/2022/10/10/DP%E2%80%94%E2%80%94%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E5%9F%BA%E7%A1%80-01%E8%83%8C%E5%8C%85/</id>
     <published>2022-10-10T15:29:07.000Z</published>
     <updated>2022-10-10T16:52:03.560Z</updated>
     
@@ -99,19 +99,19 @@
     
     
     
-    <category term="acm" scheme="http://zrxxzz.github.io/categories/acm/"/>
+    <category term="acm" scheme="http://example.com/categories/acm/"/>
     
     
-    <category term="acm" scheme="http://zrxxzz.github.io/tags/acm/"/>
+    <category term="算法" scheme="http://example.com/tags/%E7%AE%97%E6%B3%95/"/>
     
-    <category term="算法" scheme="http://zrxxzz.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    <category term="acm" scheme="http://example.com/tags/acm/"/>
     
   </entry>
   
   <entry>
     <title>git项目管理指南（粗略）</title>
-    <link href="http://zrxxzz.github.io/2022/10/05/git%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91tip/"/>
-    <id>http://zrxxzz.github.io/2022/10/05/git%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91tip/</id>
+    <link href="http://example.com/2022/10/05/git%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91tip/"/>
+    <id>http://example.com/2022/10/05/git%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91tip/</id>
     <published>2022-10-05T14:55:05.000Z</published>
     <updated>2022-10-10T08:04:53.257Z</updated>
     
@@ -122,10 +122,10 @@
     
     
     
-    <category term="others" scheme="http://zrxxzz.github.io/categories/others/"/>
+    <category term="others" scheme="http://example.com/categories/others/"/>
     
     
-    <category term="git" scheme="http://zrxxzz.github.io/tags/git/"/>
+    <category term="git" scheme="http://example.com/tags/git/"/>
     
   </entry>
   
