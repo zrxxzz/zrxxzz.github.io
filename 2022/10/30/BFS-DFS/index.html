@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="acm,算法," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="驿站" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="关于BFS和DFS的一些入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BFS&amp;DFS">
+<meta property="og:url" content="http://zrxxzz.github.io/2022/10/30/BFS-DFS/index.html">
+<meta property="og:site_name" content="驿站">
+<meta property="og:description" content="关于BFS和DFS的一些入门">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://zrxxzz.github.io/2022/10/30/BFS-DFS/%E5%A5%87%E5%81%B6%E6%80%A7%E5%89%AA%E6%9E%9D.png">
+<meta property="article:published_time" content="2022-10-30T10:15:31.000Z">
+<meta property="article:modified_time" content="2022-10-30T10:43:46.067Z">
+<meta property="article:author" content="Paul.P3pp3r.zrx">
+<meta property="article:tag" content="acm">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://zrxxzz.github.io/2022/10/30/BFS-DFS/%E5%A5%87%E5%81%B6%E6%80%A7%E5%89%AA%E6%9E%9D.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zrxxzz.github.io/2022/10/30/BFS-DFS/"/>
+
+
+
+
+
+  <title>BFS&DFS | 驿站</title>
+  
+
+
+
+
+
+
+
+
+ 
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--看板娘-->
+ <script src="/live2d-widget/autoload.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+<!--动态线条背景-->
+<script type="text/javascript"
+color="220,220,220" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+</script>
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">驿站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">分享与热爱</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zrxxzz.github.io/2022/10/30/BFS-DFS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="驿站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BFS&DFS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2022-10-30T18:15:31+08:00">
+                2022-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/acm/" itemprop="url" rel="index">
+                    <span itemprop="name">acm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2022/10/30/BFS-DFS/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2022/10/30/BFS-DFS/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  26k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  24 mins.
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>关于BFS和DFS的一些入门</center>
+<span id="more"></span>
+
+
+<h1 id="BFS"><a href="#BFS" class="headerlink" title="BFS"></a>BFS</h1><h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>输入n*m矩阵，然后从（1，1）搜索至（n,m)</p>
+<p>输出最短路径</p>
+<blockquote>
+<p>5 5</p>
+<p>0 1 0 0 0</p>
+<p>0 1 0 1 0</p>
+<p>0 0 0 0 0</p>
+<p>0 1 1 1 0</p>
+<p>0 0 0 1 0</p>
+</blockquote>
+<p><strong>注意</strong></p>
+<p>DP一般能解决搜素问题</p>
+<p>所有边等权重时，才能用BFS求最短路</p>
+<h3 id="算法核心"><a href="#算法核心" class="headerlink" title="算法核心"></a>算法核心</h3><p>初始化一个queue</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(!queue.<span class="built_in">isempty</span>())&#123;</span><br><span class="line"></span><br><span class="line">t=queue.<span class="built_in">front</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//拓展 t</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="插曲"><a href="#插曲" class="headerlink" title="插曲"></a>插曲</h3><p><strong>C++ pair 用法</strong></p>
+<p>类模板：template&lt;class T1,class T2&gt; struct pair</p>
+<p>参数：T1是第一个值的数据类型，T2是第二个值的数据类型。</p>
+<p>功能：pair将一对值(T1和T2)组合成一个值，</p>
+<p>        这一对值可以具有不同的数据类型（T1和T2），</p>
+<p>        两个值可以分别用pair的两个公有函数first和second访问。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pair&lt;T1, T2&gt; p1;            <span class="comment">//创建一个空的pair对象（使用默认构造），它的两个元素分别是T1和T2类型，采用值初始化。</span></span><br><span class="line"><span class="function">pair&lt;T1, T2&gt; <span class="title">p1</span><span class="params">(v1, v2)</span></span>;    <span class="comment">//创建一个pair对象，它的两个元素分别是T1和T2类型，其中first成员初始化为v1，second成员初始化为v2。</span></span><br><span class="line"><span class="built_in">make_pair</span>(v1, v2);          <span class="comment">// 以v1和v2的值创建一个新的pair对象，其元素类型分别是v1和v2的类型。</span></span><br><span class="line">p1 &lt; p2;                    <span class="comment">// 两个pair对象间的小于运算，其定义遵循字典次序：如 p1.first &lt; p2.first 或者 !(p2.first &lt; p1.first) &amp;&amp; (p1.second &lt; p2.second) 则返回true。</span></span><br><span class="line">p1 == p2；                  <span class="comment">// 如果两个对象的first和second依次相等，则这两个对象相等；该运算使用元素的==操作符。</span></span><br><span class="line">p1.first;                   <span class="comment">// 返回对象p1中名为first的公有数据成员</span></span><br><span class="line">p1.second;                 <span class="comment">// 返回对象p1中名为second的公有数据成员</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>C++ memset用法（初始化）</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memset</span>(dp,<span class="number">0</span>,<span class="built_in">sizeof</span>(dp));  </span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>int类型的变量一般占用4个字节，对每一个字节赋值0的话就变成了“00000000 00000000 000000000 00000000” （即10进制数中的0）  </p>
+<p>赋值为-1的话，放的是 “11111111 11111111 11111111 11111111 ”（十进制的-1）</p>
+<p>我们在很多程序中都会看到<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=memset&spm=1001.2101.3001.7020">memset</a>(a,127,sizeof(a));这样的代码，127是什么特别的数字呢？通过基础的进制转换可以得知127的二进制表示是01111111，那么在dp数组里放的内容就是“01111111 01111111 01111111 01111111”，（10进制的2139062143），这样就实现了将数组里的全部元素初始化为一个很大的数的目的了，在最短路径问题以及其他很多算法中都是需要用到的。值得注意的是，int类型的范围为2^31-1，大约是2147483647的样子（如果我没有记错的话），所以初始化int类型的数组也可以使用127这个数值。</p>
+<p>如果是128呢？因为128的二进制是10000000，那么放的内容就是10000000 10000000 10000000 10000000，经过计算可得这个数是-2139062144。这样就可以将数组初始化为一个很小的数了。</p>
+</blockquote>
+<h3 id="题解（c-）"><a href="#题解（c-）" class="headerlink" title="题解（c++）"></a>题解（c++）</h3><p>模拟队列版</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">110</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt;PII;<span class="comment">//数对，相当于二维数组 </span></span><br><span class="line"><span class="type">int</span> n,m;</span><br><span class="line"><span class="type">int</span> g[N][N];<span class="comment">// map</span></span><br><span class="line"><span class="type">int</span> d[N][N];<span class="comment">// distance</span></span><br><span class="line">PII q[N*N];<span class="comment">// 模拟队列 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">bfs</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> hh=<span class="number">0</span>,tt=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memset</span>(d,<span class="number">-1</span>,<span class="keyword">sizeof</span> d);<span class="comment">//全部初始化为-1 </span></span><br><span class="line">    d[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> dx[<span class="number">4</span>]=&#123;<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,dy[<span class="number">4</span>]=&#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">-1</span>&#125;;</span><br><span class="line">    <span class="keyword">while</span>(hh&lt;=tt)&#123;</span><br><span class="line">        <span class="keyword">auto</span> t=q[hh++];<span class="comment">//出队 </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">            <span class="type">int</span> x=t.first+dx[i],y=t.second+dy[i];<span class="comment">//四个方向遍历 </span></span><br><span class="line">            <span class="keyword">if</span>(x&gt;=<span class="number">0</span>&amp;&amp;y&gt;=<span class="number">0</span>&amp;&amp;y&lt;m&amp;&amp;x&lt;n&amp;&amp;g[x][y]==<span class="number">0</span>&amp;&amp;d[x][y]==<span class="number">-1</span>)&#123;<span class="comment">//非路障且未经过 </span></span><br><span class="line">                d[x][y]=d[t.first][t.second]+<span class="number">1</span>;<span class="comment">//距离加一 </span></span><br><span class="line">                q[ ++tt ]=&#123;x,y&#125;;<span class="comment">//新元素入队 </span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> d[n<span class="number">-1</span>][m<span class="number">-1</span>];<span class="comment">//返回终点最短路径长度 </span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;m;j++)&#123;</span><br><span class="line">            cin&gt;&gt;g[i][j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">bfs</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>队列版</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">110</span>;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="type">int</span>,<span class="type">int</span>&gt; PII;</span><br><span class="line"><span class="type">int</span> g[N][N],d[N][N];</span><br><span class="line"><span class="type">int</span> m,n;</span><br><span class="line">queue &lt;PII&gt; que;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">bfs</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(d,<span class="number">-1</span>,<span class="keyword">sizeof</span> d);<span class="comment">//初始化地图 </span></span><br><span class="line">    d[<span class="number">0</span>][<span class="number">0</span>]=<span class="number">0</span>;<span class="comment">//起点标记 </span></span><br><span class="line">    que.<span class="built_in">push</span>(&#123;<span class="number">0</span>,<span class="number">0</span>&#125;);<span class="comment">//起点入队 </span></span><br><span class="line">    <span class="type">int</span> dx[<span class="number">4</span>]=&#123;<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>&#125;,dy[<span class="number">4</span>]=&#123;<span class="number">0</span>,<span class="number">-1</span>,<span class="number">0</span>,<span class="number">1</span>&#125;;<span class="comment">//定义四个方向</span></span><br><span class="line">    <span class="keyword">while</span>(que.<span class="built_in">size</span>())&#123;<span class="comment">//当队列不为空时 </span></span><br><span class="line">        <span class="keyword">auto</span> t=que.<span class="built_in">front</span>();<span class="comment">//取出队头</span></span><br><span class="line">        que.<span class="built_in">pop</span>();<span class="comment">//队头出队 </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">            <span class="type">int</span> x=t.first+dx[i],y=t.second+dy[i];<span class="comment">//四个方位遍历获取当前坐标 </span></span><br><span class="line">            <span class="keyword">if</span>(x&lt;n&amp;&amp;y&lt;m&amp;&amp;x&gt;=<span class="number">0</span>&amp;&amp;y&gt;=<span class="number">0</span>&amp;&amp;g[x][y]==<span class="number">0</span>&amp;&amp;d[x][y]==<span class="number">-1</span>)&#123;</span><br><span class="line">                d[x][y]=d[t.first][t.second]+<span class="number">1</span>;<span class="comment">//距离+1 </span></span><br><span class="line">                que.<span class="built_in">push</span>(&#123;x,y&#125;);<span class="comment">//将当前坐标入队 </span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> d[n<span class="number">-1</span>][m<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    cin&gt;&gt;n&gt;&gt;m;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;m;j++)&#123;</span><br><span class="line">        cin&gt;&gt;g[i][j];    </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout&lt;&lt;<span class="built_in">bfs</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="DFS"><a href="#DFS" class="headerlink" title="DFS"></a>DFS</h2><p>普遍来说，BFS要比DFS简单很多，虽然两个都是常规的搜索方法，但是BFS通常用于求最短路之类的最优解，有属于它的模板，而且，只需要简单的进行剪枝（例如记录走过的路，下次不再走），</p>
+<p>而DFS不一样，DFS不只是简单求最优解，而是求加上了不少限制条件的答案，因此难度系数剧增，很多时候我们最开始能想到的是通过暴力的枚举来进行求解，但是这样的时间成本过高，因此我们通常选择对不同的体型进行对应的剪枝，</p>
+<p>例如本题</p>
+<h3 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h3><blockquote>
+<p>小狗在一个古老的迷宫里发现了一根骨头，这让他非常着迷。然而，当他把它捡起来时，迷宫开始摇晃，小狗能感觉到地面在下沉。他意识到骨头是个陷阱，他拼命想走出这个迷宫。迷宫是一个长方形，大小为N乘M。迷宫里有一扇门。开始时，门是关闭的，它会在第T秒打开一小段时间（不到1秒）。因此，小狗必须准确地在第T秒到达门口。在每秒钟内，他可以将一个街区移动到上、下、左、右相邻街区中的一个。一旦他进入一个街区，这个街区的地面就会开始下沉，并在下一秒钟消失。他不能在一个街区停留超过一秒钟，也不能搬进去过的街区。可怜的小狗能活下来吗？请帮帮他。</p>
+</blockquote>
+<p><strong>输入</strong></p>
+<blockquote>
+<p>输入由多个测试用例组成。每个测试用例的第一行包含三个整数N、M和T（1&lt;N，M&lt;7；0&lt;T&lt;50），分别表示迷宫的大小和门打开的时间。接下来的N行给出了迷宫布局，每行包含M个字符。字符是以下之一：“X”：一块墙，小狗不能进入；“S”：小狗的起点；‘D’：门；或者“.”：一个空块。输入以三个0结束。此测试用例不被处理。</p>
+</blockquote>
+<p><strong>输出</strong></p>
+<blockquote>
+<p>对于每个测试案例，如果小狗能活下来，在一行中打印“是”，否则打印“否”。</p>
+</blockquote>
+<p><strong>样例</strong></p>
+<blockquote>
+<p>4 4 5</p>
+<p>S.X.</p>
+<p>..X.</p>
+<p>..XD</p>
+<p>….</p>
+<p>3 4 5</p>
+<p>S.X.</p>
+<p>..X.</p>
+<p>…D</p>
+<p>0 0 0</p>
+</blockquote>
+<p><strong>-&gt;</strong></p>
+<blockquote>
+<p>NO</p>
+<p>YES</p>
+</blockquote>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p><strong>核心代码</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> si,<span class="type">int</span> sj,<span class="type">int</span> Tn)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(si&gt;N||sj&gt;M||si&lt;=<span class="number">0</span>||sj&lt;=<span class="number">0</span>)<span class="keyword">return</span> ;</span><br><span class="line">    <span class="keyword">if</span>(Tn==T&amp;&amp;si==di&amp;sj==dj)escape=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(escape)<span class="keyword">return</span> ;<span class="comment">//一旦找出解，全部返回，不再判断 </span></span><br><span class="line">    <span class="type">int</span> temp=T-Tn-<span class="built_in">abs</span>(si-di)-<span class="built_in">abs</span>(sj-dj);</span><br><span class="line">    <span class="comment">//检测时间和哈夫曼距离奇偶性是否相同</span></span><br><span class="line">    <span class="keyword">if</span>(temp&lt;<span class="number">0</span>||temp%<span class="number">2</span>==<span class="number">1</span>) <span class="keyword">return</span> ;<span class="comment">//奇偶性剪枝</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">4</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(map[si+vec[i][<span class="number">0</span>]][sj+vec[i][<span class="number">1</span>]]!=<span class="string">&#x27;X&#x27;</span>)&#123;</span><br><span class="line">            map[si+vec[i][<span class="number">0</span>]][sj+vec[i][<span class="number">1</span>]]=<span class="string">&#x27;X&#x27;</span>;<span class="comment">//常规剪枝</span></span><br><span class="line">            <span class="built_in">dfs</span>(si+vec[i][<span class="number">0</span>],sj+vec[i][<span class="number">1</span>],Tn+<span class="number">1</span>);</span><br><span class="line">            map[si+vec[i][<span class="number">0</span>]][sj+vec[i][<span class="number">1</span>]]=<span class="string">&#x27;.&#x27;</span>;<span class="comment">//回溯</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>剪枝与回溯解释</strong></p>
+<p><em>常规剪枝</em>操作有</p>
+<p><code>if(si&gt;N||sj&gt;M||si&lt;=0||sj&lt;=0)return ;</code></p>
+<p><code>map[si+vec[i][0]][sj+vec[i][1]]=&#39;X&#39;;</code>这里的剪枝，类似于BFS当中的记录是否访问过</p>
+<p><code>if(M*N&gt;=T)dfs(si,sj,0); </code></p>
+<p>判断总距离最大值是否大于时间</p>
+<p><em>特殊剪枝</em></p>
+<p>奇偶性剪枝：</p>
+<p><img src="/2022/10/30/BFS-DFS/%E5%A5%87%E5%81%B6%E6%80%A7%E5%89%AA%E6%9E%9D.png"></p>
+<p>因此在迭代中可以随时检验奇偶性是否相同，以此实现剪枝目的</p>
+<p><em>回溯</em></p>
+<p>从DFS每次出发作为视角，每次路走不通的时候，我们都需要把走过的路设置为未走过，因此才不会影响下一次的搜索。（恢复现场）</p>
+<p>只有当DSF-&gt;return之后才会执行刷新路径操作</p>
+<h3 id="附加（简单题）：全排列问题"><a href="#附加（简单题）：全排列问题" class="headerlink" title="附加（简单题）：全排列问题"></a>附加（简单题）：全排列问题</h3><blockquote>
+<p> input：3</p>
+</blockquote>
+<blockquote>
+<p>output:  123|321|132|213|231|312</p>
+</blockquote>
+<p>n位数字，从第一位开始填，每一位不能和之前的相同</p>
+<p>类似树形结构,但不是层层遍历，而是追求深度，一条路走到黑，如果走不通，就回溯，回到上一个状态，看看能不能走另一条路</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">10000</span>;</span><br><span class="line"><span class="type">int</span> m,n;</span><br><span class="line"><span class="type">int</span> map[N];</span><br><span class="line"><span class="type">int</span> re[N];</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> n,<span class="type">int</span> m)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(m==n+<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            cout&lt;&lt;re[i]&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">            re[N]=<span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout&lt;&lt;endl;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(map[j]!=<span class="number">0</span>)&#123;</span><br><span class="line">            re[m]=j;</span><br><span class="line">            map[j]=<span class="number">0</span>;<span class="comment">//标记走过</span></span><br><span class="line">            <span class="built_in">dfs</span>(n,m+<span class="number">1</span>);</span><br><span class="line">            map[j]=j;    <span class="comment">//回溯</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(cin&gt;&gt;n)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)map[i]=i;<span class="comment">//初始化</span></span><br><span class="line">        <span class="built_in">dfs</span>(n,<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题目很经典也很简单，适合了解回溯，了解DFS运行机制</p>
+<blockquote>
+<p>最近发生了很多事情，有好有坏，庆幸在不开心的时候有人陪伴倾诉，庆幸在开心的时候没有过度喜悦。不管是科研、开发、绩点、比赛and so on，希望每件事都能够做到不让自己后悔</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/acm/" rel="tag"># acm</a>
+          
+            <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/10/22/GUI%E7%BC%96%E7%A8%8B/" rel="next" title="GUI编程">
+                <i class="fa fa-chevron-left"></i> GUI编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BFS"><span class="nav-number">1.</span> <span class="nav-text">BFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF"><span class="nav-number">1.0.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%B3%95%E6%A0%B8%E5%BF%83"><span class="nav-number">1.0.2.</span> <span class="nav-text">算法核心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E6%9B%B2"><span class="nav-number">1.0.3.</span> <span class="nav-text">插曲</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3%EF%BC%88c-%EF%BC%89"><span class="nav-number">1.0.4.</span> <span class="nav-text">题解（c++）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DFS"><span class="nav-number">1.1.</span> <span class="nav-text">DFS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%83%8C%E6%99%AF-1"><span class="nav-number">1.1.1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%98%E8%A7%A3"><span class="nav-number">1.1.2.</span> <span class="nav-text">题解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E5%8A%A0%EF%BC%88%E7%AE%80%E5%8D%95%E9%A2%98%EF%BC%89%EF%BC%9A%E5%85%A8%E6%8E%92%E5%88%97%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.3.</span> <span class="nav-text">附加（简单题）：全排列问题</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Paul.P3pp3r.zrx</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">20k</span>
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="footer.total_visitors">
+      已有<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人访问
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="footer.total_views">
+      总访问<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'Sr3df8c5uWBo1584Nf7nP4tY-gzGzoHsz',
+        appKey: '92o63CdOfjoDQIsaIZ3ib4NE',
+        placeholder: 'commit your comments',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"left","width":200,"height":500},"mobile":{"show":true},"rect":"opacity:0.6","log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
